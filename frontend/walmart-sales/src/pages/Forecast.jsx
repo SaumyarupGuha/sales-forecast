@@ -63,7 +63,10 @@ const Forecast = () => {
         Rolling_52: 21500
       };
 
-      const apiUrl = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
+      let apiUrl = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
+      if (apiUrl.endsWith('/')) apiUrl = apiUrl.slice(0, -1);
+      if (!apiUrl.startsWith('http')) apiUrl = 'https://' + apiUrl;
+
       const res = await axios.post(`${apiUrl}/predict`, payload);
       setPrediction(res.data.predicted_sales);
       console.log(res.data);

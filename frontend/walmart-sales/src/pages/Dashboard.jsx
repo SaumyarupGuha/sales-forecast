@@ -13,7 +13,10 @@ const Dashboard = () => {
   const fetchDashboardStats = async () => {
     try {
       setLoading(true);
-      const apiUrl = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
+      let apiUrl = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
+      if (apiUrl.endsWith('/')) apiUrl = apiUrl.slice(0, -1);
+      if (!apiUrl.startsWith('http')) apiUrl = 'https://' + apiUrl;
+      
       const response = await axios.get(`${apiUrl}/dashboard/stats`);
       setStats(response.data);
       setError(null);
