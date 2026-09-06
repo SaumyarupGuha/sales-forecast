@@ -64,7 +64,7 @@ const Forecast = () => {
       };
 
       const apiUrl = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
-      const response = await axios.get(`${apiUrl}/dashboard/stats`);
+      const res = await axios.post(`${apiUrl}/predict`, payload);
       setPrediction(res.data.predicted_sales);
       console.log(res.data);
     } catch (err) {
